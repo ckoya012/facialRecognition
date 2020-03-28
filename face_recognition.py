@@ -30,6 +30,9 @@ df = pd.read_csv("face_data.csv")
 labels = df["target"]
 pixels = df.drop(["target"], axis=1)
 
+# print np.array(pixels).shape
+# show_original_images(pixels)
+
 ## Split dataset into training and testing
 
 x_train, x_test, y_train, y_test = train_test_split(pixels, labels)
@@ -37,9 +40,12 @@ x_train, x_test, y_train, y_test = train_test_split(pixels, labels)
 ## Perform PCA
 
 pca = PCA(n_components = 135).fit(x_train)
-
 plt.plot(np.cumsum(pca.explained_variance_ratio_))
+plt.xlabel('number of components')
+plt.ylabel('cumulative explained variance')
 plt.show()
+
+show_eigenfaces(pca)
 
 ## Project training data to PCA
 
